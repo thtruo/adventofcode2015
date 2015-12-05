@@ -1,0 +1,1 @@
+Discovered [adventofcode](http://adventofcode.com/) when browsing through [Hacker News](news.ycombinator.com). Looks like a fun December puzzle challenge to try. Here goes nothing.
