@@ -22,7 +22,55 @@
  * 2 houses.
  */
 
- let test01 = '>';
- let test02 = '^>v<';
- let test03 = '^v^v^v^v^v';
+import {test00, test01, test02, test03, test04, input} from './input'
 
+let prev = { x: 0, y: 0 };  // home coordinates at origin (0, 0)
+
+// Collect all the Cartesian coordinates from parsing the input string
+let collectPoints = (input) => {
+
+  let instructions = input.split('');
+  let points = [];
+
+  for (var i = 0; i < instructions.length; i++) {
+
+    if (instructions[i] === '<') {
+      points.push(new Object({ x: prev.x - 1, y: prev.y }));
+      prev.x -= 1;
+    }
+    else if (instructions[i] === '>') {
+      points.push(new Object({ x: prev.x + 1, y: prev.y }));
+      prev.x += 1;
+    }
+    else if (instructions[i] === 'v') {
+      points.push(new Object({ x: prev.x, y: prev.y - 1 }));
+      prev.y -= 1;
+    }
+    else if (instructions[i] === '^') {
+      points.push(new Object({ x: prev.x, y: prev.y + 1 }));
+      prev.y += 1;
+    };
+  };
+
+  return points;
+};
+
+// Count de-duplicated unique coordinates
+let countOfUniquePoints = (input) => {
+
+  let points = collectPoints(input);
+  let count = 1;
+
+  for (let i = 0; i < points.length; i++) {
+    for (let j = i; j < points.length; j++) {
+
+      if (points[i].x === points[j].x && points[i].y === points[j].y) {
+        continue;
+      }
+    }
+    count++;
+  }
+  return count;
+}
+
+console.log(countOfUniquePoints(input));
